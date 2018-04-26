@@ -16,10 +16,18 @@ const collection = [{
     price: 'IS',
     inventory: 'A PLACEHOLDER'
   }
-]
+];
 
 function all() {
   return collection;
+};
+
+function getById(productId){
+  let idValues = collection.map(function (product){
+    return product.id
+  });
+  productIndex = idValues.indexOf(productId);
+  return collection[productIndex]; 
 }
 
 function create(data) {
@@ -31,7 +39,7 @@ function create(data) {
   }
   collection.push(newProduct);
   return collection;
-}
+};
 
 function edit(data, productId){
   let selectedObj = collection[productId];
@@ -39,10 +47,21 @@ function edit(data, productId){
   selectedObj.price = parseFloat(data.price);
   selectedObj.inventory = parseFloat(data.inventory);
   return selectedObj;
+};
+
+function remove(productId){
+  let productCheck = collection.indexOf(collection[productId])
+  if(productCheck === -1){
+    return collection[productId];
+  }
+  collection.splice(collection.indexOf(collection[productId]), 1)
+  return collection;
 }
 
 module.exports = {
   all: all,
+  getById: getById,
   create: create,
   edit: edit,
+  delete: remove
 };
