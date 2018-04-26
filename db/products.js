@@ -1,7 +1,7 @@
 const collection = [];
 
-function all(res, req) {
-  req.send('smoke test')
+function all() {
+  
 }
 
 function add(res, req) {

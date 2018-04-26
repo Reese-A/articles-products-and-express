@@ -1,10 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const productDb = require('../db/products');
+const productDb = require('../../db/products');
 
-router.route('/products')
+router.route('/')
   .get((res, req) => {
-    res.send(productDb.all(res, req));
+    req.send('smoke test');
   })
 
 module.exports = router;
