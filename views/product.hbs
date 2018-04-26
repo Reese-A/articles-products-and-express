@@ -1,3 +1,7 @@
 <div>name: {{name}}</div>
 <div>price: {{price}}</div>
 <div>inventory: {{inventory}}</div>
+<a href="http://www.localhost:8080/products/{{id}}/edit">Edit</a>
+</form>
+<form action="/products/{{id}}?_method=DELETE" method="POST">
+  <button type="submit">DELETE PRODUCT</button>
