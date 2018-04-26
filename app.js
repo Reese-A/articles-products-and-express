@@ -4,8 +4,9 @@ const app = express();
 const routes = require('./routes');
 const methodOverride = require('method-override');
 const PORT = process.env.PORT || 8080;
-// const articleDb = require('./db/articles');
-// const productDb = require('./db/products');
+const exphbs = require('express-handlebars');
+app.engine('.hbs', exphbs({ extname: '.hbs' }));
+app.set('view engine', '.hbs');
 app.use(express.static('./public'));
 
 app.use(bodyParser.urlencoded({
