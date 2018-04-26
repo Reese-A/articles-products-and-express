@@ -22,15 +22,20 @@ function all() {
   return collection;
 }
 
-function add(req, res) {
-  // 
-
+function create(data) {
+  let newProduct = {
+    id: collection.length,
+    name: data.name,
+    price: parseFloat(data.price),
+    inventory: parseFloat(data.inventory)
+  }
+  collection.push(newProduct);
+  return collection;
 }
 
 module.exports = {
   all: all,
-  add: add,
-  //create: create,
+  create: create,
   // getByTitle: getByTitle,
   // editByTitle: editByTitle
 };
