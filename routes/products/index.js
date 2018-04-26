@@ -28,7 +28,7 @@ router.route('/')
 
 router.route('/new')
   .get((req, res) => {
-    res.render('newProduct')
+    res.render('newProductForm')
   })
 
 router.route('/:id')
