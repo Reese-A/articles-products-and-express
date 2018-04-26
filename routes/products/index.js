@@ -18,9 +18,8 @@ router.route('/')
   res.render('productsList', {
     products: products
   })
-});
+})
 
-router.route('/')
 .post((req,res)=>{
   const data = req.body;
   productDb.create(data);
@@ -42,6 +41,17 @@ router.route('/:id')
     res.render('product', product);
   })
 
+router.route('/:id/edit')
+.get((req,res)=>{
+  let productId = req.params.id;
+  const product = productDb.all()[productId];
+  
+})
+
+.put((req,res)=>{
+  console.log('Placeholder');
+  
+})
 
 
 module.exports = router;
