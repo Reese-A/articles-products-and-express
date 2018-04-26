@@ -8,9 +8,15 @@ const productDb = require('../../db/products');
 
 router.route('/')
   .get((req, res) => {
-    res.render('productsList', productDb.all())
+    const products = productDb.all()
+    res.render('productsList', {products: products})
   });
 
-
+router.route('/:id')
+  .get((req, res) => {
+    let productId = req.params.id;
+    const product = productDb.all()[productId];
+    res.render('product', product);
+  })
 
 module.exports = router;
