@@ -1,5 +1,6 @@
-<form action="/products/{{id}}" method="PUT">
+<form action="/products/{{id}}?_method=PUT" method="POST">
 name: <input type = "text" name = 'name' value = {{name}} id = 'editNameInput'>
 price: <input type = "text" name = 'price' value = {{price}} id = 'editPriceInput'>
 inventory: <input type = "text" name = 'inventory' value = {{inventory}} id = 'editInventoryInput'>
+<button type="submit">SUBMIT CHANGES</button>
 </form>

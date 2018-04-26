@@ -33,9 +33,16 @@ function create(data) {
   return collection;
 }
 
+function edit(data, productId){
+  let selectedObj = collection[productId];
+  selectedObj.name = data.name;
+  selectedObj.price = parseFloat(data.price);
+  selectedObj.inventory = parseFloat(data.inventory);
+  return selectedObj;
+}
+
 module.exports = {
   all: all,
   create: create,
-  // getByTitle: getByTitle,
-  // editByTitle: editByTitle
+  edit: edit,
 };

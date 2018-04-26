@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router();
 const exphbs = require('express-handlebars');
 const app = express();
+const methodOverride = require('method-override');
+app.use(methodOverride('_method'))
 const checkData = require('../../util/checkData');
 app.engine('.hbs', exphbs({
   extname: '.hbs'
@@ -39,19 +41,23 @@ router.route('/:id')
     let productId = req.params.id;
     const product = productDb.all()[productId];
     res.render('product', product);
-  })
+  });
+
+router.route('/:id')
+  .put((req, res) => {
+    let productId = req.params.id;
+    const data = req.body;
+    const editedProduct = productDb.edit(data, productId);
+    res.render('product', editedProduct);
+  });
 
 router.route('/:id/edit')
 .get((req,res)=>{
   let productId = req.params.id;
   const product = productDb.all()[productId];
-  
+  res.render('editProductForm', product);
 })
 
-.put((req,res)=>{
-  console.log('Placeholder');
-  
-})
 
 
 module.exports = router;

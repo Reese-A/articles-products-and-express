@@ -10,6 +10,8 @@ app.engine('.hbs', exphbs({
 }));
 app.set('view engine', '.hbs');
 
+app.use(methodOverride('_method'))
+
 app.use(bodyParser.urlencoded({
   extended: true
 }));
