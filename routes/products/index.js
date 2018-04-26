@@ -7,7 +7,7 @@ app.use(methodOverride('_method'))
 const checkData = require('../../util/checkData');
 app.engine('.hbs', exphbs({
   extname: '.hbs'
-}));
+})); 
 app.set('view engine', '.hbs');
 const productDb = require('../../db/products');
 

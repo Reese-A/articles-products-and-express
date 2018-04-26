@@ -1,5 +1,10 @@
 {{#each products}}
-<div>name:{{name}} </div>
+<ul>
+<li>
+<H4>{{name}} </H4>
 <div>price:{{price}}</div>
 <div>inventory:{{inventory}}</div>
+<a href="http://www.localhost:8080/products/{{id}}/edit">Edit</a>
+</li>
+</ul>
 {{/each}}
