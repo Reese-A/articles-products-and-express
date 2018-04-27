@@ -1,14 +1,14 @@
 const express = require('express');
 const router = express.Router();
-const exphbs = require('express-handlebars');
-const app = express();
-const methodOverride = require('method-override');
-app.use(methodOverride('_method'))
+// const exphbs = require('express-handlebars');
+// const app = express();
+// const methodOverride = require('method-override');
+// app.use(methodOverride('_method'))
 const checkData = require('../../util/checkData');
-app.engine('.hbs', exphbs({
-  extname: '.hbs'
-}));
-app.set('view engine', '.hbs');
+// app.engine('.hbs', exphbs({
+//   extname: '.hbs'
+// }));
+// app.set('view engine', '.hbs');
 const productDb = require('../../db/products');
 
 const products = productDb.all()

@@ -1,13 +1,10 @@
 <form action="/products/{{id}}?_method=PUT" method="POST">
 name: <input type = "text" name = 'name' value = {{name}} id = 'editNameInput'>
 <br>
-{{>checkDataErr}}
 price: <input type = "text" name = 'price' value = {{price}} id = 'editPriceInput'>
 <br>
-{{>checkDataErr}}
 inventory: <input type = "text" name = 'inventory' value = {{inventory}} id = 'editInventoryInput'>
 <br>
-{{>checkDataErr}} 
 <button type="submit">SUBMIT CHANGES</button>
-<a href="http://www.localhost:8080/products/{{id}}">Return to product page</a>
+<a href="/products/{{id}}">Return to product page</a>
 </form>
