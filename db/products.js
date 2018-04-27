@@ -7,7 +7,7 @@ const collection = [{
   {
     id: 1,
     name: 'test2',
-    price: 789,     
+    price: 789,
     inventory: 101112
   },
   {
@@ -17,22 +17,36 @@ const collection = [{
     inventory: 161718
   }
 ];
-const idValues = collection.map(function (product){
+const idValues = collection.map(function (product) {
   return product.id
 });
+
 
 function all() {
   return collection;
 };
 
-function getById(productId){
+function getById(productId) {
   let productIndex = idValues.indexOf(productId);
-  return collection[productIndex]; 
+  return collection[productIndex];
 }
 
 function create(data) {
+  let newId = Math.floor(Math.random() * 10000);
+  let valueIndex = idValues.indexOf(newId)
+  function createId() {
+    if (valueIndex === -1) {
+      console.log(newId)
+      idValues.push(newId);
+      return newId;
+    }
+    newId = Math.floor(Math.random() * 10000)
+    valueIndex = idValues.indexOf(newId)
+    createId()
+  }
+
   let newProduct = {
-    id: Math.floor(Math.random() * 1000),
+    id: createId(),
     name: data.name,
     price: parseFloat(data.price),
     inventory: parseFloat(data.inventory),
@@ -40,12 +54,13 @@ function create(data) {
     validPrice: true,
     validInventory: true
   }
+  console.log('hello');
+  
   collection.push(newProduct);
-  idValues.push(newProduct.id);
   return collection;
 };
 
-function edit(data, productId){
+function edit(data, productId) {
   let productIndex = idValues.indexOf(productId);
   let selectedObj = collection[productIndex];
   selectedObj.name = data.name;
@@ -54,10 +69,10 @@ function edit(data, productId){
   return selectedObj;
 };
 
-function remove(productId){
+function remove(productId) {
   let productIndex = idValues.indexOf(productId);
   const target = collection[productIndex];
-  if(productIndex === -1){
+  if (productIndex === -1) {
     return collection[productIndex];
   }
   collection.splice(collection.indexOf(target), 1)
