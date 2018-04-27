@@ -1,0 +1,16 @@
+<h1>ARTICLES LIST</h1>
+
+{{#each articles}}
+<ul>
+  <li>
+    <a href="/articles/{{id}}">
+      <h3>{{title}} </h3>
+    </a>
+    <div>By:{{author}}</div>
+    <div>{{body}}</div>
+  </li>
+</ul>
+{{/each}}
+<a href="/articles/new">Add Article</a>
+<br>
+<a href="/">Return to Index</a>
