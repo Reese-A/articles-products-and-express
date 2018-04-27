@@ -11,15 +11,15 @@ module.exports = function dataCheck() {
       if (requirements.includes('urlTitle')) {
         requirements.splice(requirements.indexOf('urlTitle'), 1)
       }
-      for (i = 0; i < requirements.length; i++) {
-        if (data[requirements[i]]) {
+      if(requirements.every(function(requirement){
+        return data[requirement] !== '';
+      })){
           return next();
         } else {
           res.status(400);
-          return res.render('400');
+          return res.render('400')
         }
       }
-    }
     return next()
   }
 }
