@@ -24,11 +24,14 @@ router.route('/')
   })
 
   .post((req, res) => {
+    if(validation(req, res)){
     const data = req.body;
     productDb.create(data);
     res.render('productsList', {
       products: products
     })
+  }
+  res.send('NaN');
   })
 
 
@@ -46,10 +49,13 @@ router.route('/:id')
   })
 
   .put((req, res) => {
+    if(validation(req,res)){
     let productId = parseFloat(req.params.id);
     const data = req.body;
     const editedProduct = productDb.edit(data, productId);
     res.render('product', editedProduct);
+    }
+    res.send('NaN');
   })
 
   .delete((req,res) => {
@@ -66,4 +72,13 @@ router.route('/:id/edit')
     res.render('editProductForm', product);
   })
 
+  function validation(req, res){
+    let priceNum = parseFloat(req.body.price);
+    let inventoryNum = parseFloat(req.body.inventory)
+    if(Number.isNaN(priceNum)) return false;
+    if(Number.isNaN(inventoryNum)) return false;
+    return true;
+  }
+
+// .replace(/\D/g, '')
 module.exports = router;
