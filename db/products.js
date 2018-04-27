@@ -3,18 +3,24 @@ const collection = [{
     name: 'test',
     price: 123,
     inventory: 456,
+    invalidPrice: false,
+    invalidInventory: false
   },
   {
     id: 1,
     name: 'test2',
     price: 789,
-    inventory: 101112
+    inventory: 101112,
+    invalidPrice: false,
+    invalidInventory: false
   },
   {
     id: 2,
     name: 'test3',
     price: 131415,
-    inventory: 161718
+    inventory: 161718,
+    invalidPrice: false,
+    invalidInventory: false
   }
 ];
 const idValues = collection.map(function (product) {
@@ -34,6 +40,7 @@ function getById(productId) {
 function create(data) {
   let newId = Math.floor(Math.random() * 10000);
   let valueIndex = idValues.indexOf(newId)
+
   function createId() {
     if (valueIndex === -1) {
       console.log(newId)
@@ -50,12 +57,11 @@ function create(data) {
     name: data.name,
     price: parseFloat(data.price),
     inventory: parseFloat(data.inventory),
-    validName: true,
-    validPrice: true,
-    validInventory: true
+    invalidPrice: false,
+    invalidInventory: false
   }
   console.log('hello');
-  
+
   collection.push(newProduct);
   return collection;
 };
@@ -66,6 +72,8 @@ function edit(data, productId) {
   selectedObj.name = data.name;
   selectedObj.price = parseFloat(data.price);
   selectedObj.inventory = parseFloat(data.inventory);
+  selectedObj.invalidPrice = data.invalidPrice;
+  selectedObj.invalidInventory = data.invalidInventory
   return selectedObj;
 };
 

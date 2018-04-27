@@ -1,10 +1,17 @@
 <form action="/products/{{id}}?_method=PUT" method="POST">
-name: <input type = "text" name = 'name' value = {{name}} id = 'editNameInput'>
-<br>
-price: <input type = "text" name = 'price' value = {{price}} id = 'editPriceInput'>
-<br>
-inventory: <input type = "text" name = 'inventory' value = {{inventory}} id = 'editInventoryInput'>
-<br>
-<button type="submit">SUBMIT CHANGES</button>
-<a href="/products/{{id}}">Return to product page</a>
+  name:
+  <input type="text" name='name' value={{name}} id='editNameInput'>
+  <br> price:
+  <input type="text" name='price' value={{price}} id='editPriceInput'> 
+  {{#if invalidPrice}}
+  {{>invalidPriceErr}}
+  {{/if}}
+  <br> inventory:
+  <input type="text" name='inventory' value={{inventory}} id='editInventoryInput'>
+  {{#if invalidInventory}} 
+  {{>invalidInventoryErr}}
+  {{/if}}
+  <br>
+  <button type="submit">SUBMIT CHANGES</button>
+  <a href="/products/{{id}}">Return to product page</a>
 </form>

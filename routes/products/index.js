@@ -50,13 +50,11 @@ router.route('/:id')
   })
 
   .put((req, res) => {
+    let productId = parseFloat(req.params.id);
     if (validation(req, res)) {
-      let productId = parseFloat(req.params.id);
-      const data = req.body;
-      const editedProduct = productDb.edit(data, productId);
-      res.render('product', editedProduct);
-    } else {
-      res.send('NaN');
+      res.render('product', productDb.edit(req.body, productId));
+    }else{
+      res.render('editProductForm', productDb.edit(req.body, productId))
     }
   })
 
@@ -79,8 +77,20 @@ router.route('/:id/edit')
 function validation(req, res) {
   let priceNum = Number(req.body.price);
   let inventoryNum = Number(req.body.inventory);
-  if (Number.isNaN(priceNum)) return false;
-  if (Number.isNaN(inventoryNum)) return false;
+  if (isNaN(priceNum) && isNaN(inventoryNum)){
+    req.body.invalidPrice = true;
+    req.body.invalidInventory = true;
+    return false;
+  }
+  if (isNaN(priceNum)) {
+    console.log('hello')
+    req.body.invalidPrice = true;
+    return false;
+  }
+  if (isNaN(inventoryNum)) {
+    req.body.invalidInventory = true;
+    return false;
+  }
   return true;
 }
 
