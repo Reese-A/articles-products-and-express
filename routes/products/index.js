@@ -24,14 +24,14 @@ router.route('/')
   })
 
   .post((req, res) => {
-    if(validation(req, res)){
+    // if(validation(req, res)){
     const data = req.body;
     productDb.create(data);
     res.render('productsList', {
       products: products
     })
-  }
-  res.send('NaN');
+  // }
+  // res.send('NaN');
   })
 
 
@@ -49,13 +49,13 @@ router.route('/:id')
   })
 
   .put((req, res) => {
-    if(validation(req,res)){
+    // if(validation(req,res)){
     let productId = parseFloat(req.params.id);
     const data = req.body;
     const editedProduct = productDb.edit(data, productId);
     res.render('product', editedProduct);
-    }
-    res.send('NaN');
+    // }
+    // res.send('NaN');
   })
 
   .delete((req,res) => {
