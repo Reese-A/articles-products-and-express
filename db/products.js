@@ -57,13 +57,12 @@ function create(data) {
     name: data.name,
     price: parseFloat(data.price),
     inventory: parseFloat(data.inventory),
-    invalidPrice: false,
-    invalidInventory: false
+    invalidPrice: data.invalidPrice,
+    invalidInventory: data.invalidInventory
   }
-  console.log('hello');
 
   collection.push(newProduct);
-  return collection;
+  return newProduct;
 };
 
 function edit(data, productId) {

@@ -31,7 +31,9 @@ router.route('/')
         products: products
       })
     } else {
-      res.send('NaN');
+      let invalidProduct = productDb.create(req.body)
+      productDb.delete(parseFloat(invalidProduct.id))
+      res.render('newProductForm', invalidProduct)
     }
   })
 
@@ -83,7 +85,6 @@ function validation(req, res) {
     return false;
   }
   if (isNaN(priceNum)) {
-    console.log('hello')
     req.body.invalidPrice = true;
     return false;
   }

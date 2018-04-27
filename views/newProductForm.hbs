@@ -1,9 +1,14 @@
   <form action="/products" method='POST'>
-<input type="text" name="name" placeholder="name" id='productNameInput'>
+  Name:
+<input type="text" name="name" {{#if invalidPrice}} value={{name}} {{/if}} {{#if invalidInventory}} value={{name}} {{/if}} id='productNameInput'>
      <br>
-<input type="text" name="price" placeholder="price" id = 'productPriceInput'>
+  Price:
+<input type="text" name="price" {{#if invalidPrice}} value={{price}} {{/if}} {{#if invalidInventory}} value={{price}} {{/if}} id = 'productPriceInput'>
+   {{#if invalidPrice}} {{>invalidPriceErr}} {{/if}}
      <br>
-<input type="text" placeholder="inventory" name="inventory" id ="productInventoryInput">
+  Inventory:
+<input type="text" {{#if invalidPrice}} value={{inventory}} {{/if}} {{#if invalidInventory}} value={{inventory}} {{/if}} name="inventory" id ="productInventoryInput">
+   {{#if invalidInventory}} {{>invalidInventoryErr}} {{/if}}
      <br>
     <button type="submit">SUBMIT</button>
     <br>
