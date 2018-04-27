@@ -1,10 +1,10 @@
 module.exports = function dataCheck() {
   return function (req, res, next) {
+    const method = req.method.toUpperCase();
     const data = req.body;
     let requirements = Object.keys(data);
-    console.log(data);
     
-    if (requirements.length >= 3) {      
+    if (requirements.length > 0) {      
       if (requirements.includes('id')) {
         requirements.splice(requirements.indexOf('id'), 1)
       }

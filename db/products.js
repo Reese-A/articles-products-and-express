@@ -2,7 +2,7 @@ const collection = [{
     id: 0,
     name: 'test',
     price: 123,
-    inventory: 456
+    inventory: 456,
   },
   {
     id: 1,
@@ -35,7 +35,10 @@ function create(data) {
     id: Math.floor(Math.random() * 1000),
     name: data.name,
     price: parseFloat(data.price),
-    inventory: parseFloat(data.inventory)
+    inventory: parseFloat(data.inventory),
+    validName: true,
+    validPrice: true,
+    validInventory: true
   }
   collection.push(newProduct);
   idValues.push(newProduct.id);
@@ -60,6 +63,17 @@ function remove(productId){
   collection.splice(collection.indexOf(target), 1)
   idValues.splice(productIndex, 1);
   return collection;
+};
+
+function invalidName(method){
+  switch (method) {
+    case POST:
+      
+      break;
+  
+    default:
+      break;
+  }
 }
 
 module.exports = {
