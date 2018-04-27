@@ -44,21 +44,21 @@ router.route('/:id')
   })
 
   .put((req, res) => {
-    let productId = req.params.id;
+    let productId = parseFloat(req.params.id);
     const data = req.body;
     const editedProduct = productDb.edit(data, productId);
     res.render('product', editedProduct);
   })
 
   .delete((req,res) => {
-    let productId = req.params.id;
+    let productId = parseFloat(req.params.id);
     const product = productDb.delete(productId);
     res.render('productsList', {products:product});
   })
 
 router.route('/:id/edit')
   .get((req, res) => {
-    let productId = req.params.id;
+    let productId = parseFloat(req.params.id);
     const product = productDb.all()[productId];
     res.render('editProductForm', product);
   })

@@ -17,32 +17,34 @@ const collection = [{
     inventory: 'A PLACEHOLDER'
   }
 ];
+const idValues = collection.map(function (product){
+  return product.id
+});
 
 function all() {
   return collection;
 };
 
 function getById(productId){
-  let idValues = collection.map(function (product){
-    return product.id
-  });
-  productIndex = idValues.indexOf(productId);
+  let productIndex = idValues.indexOf(productId);
   return collection[productIndex]; 
 }
 
 function create(data) {
   let newProduct = {
-    id: collection.length,
+    id: Math.floor(Math.random() * 1000),
     name: data.name,
     price: parseFloat(data.price),
     inventory: parseFloat(data.inventory)
   }
   collection.push(newProduct);
+  idValues.push(newProduct.id);
   return collection;
 };
 
 function edit(data, productId){
-  let selectedObj = collection[productId];
+  let productIndex = idValues.indexOf(productId);
+  let selectedObj = collection[productIndex];
   selectedObj.name = data.name;
   selectedObj.price = parseFloat(data.price);
   selectedObj.inventory = parseFloat(data.inventory);
@@ -50,11 +52,13 @@ function edit(data, productId){
 };
 
 function remove(productId){
-  let productCheck = collection.indexOf(collection[productId])
-  if(productCheck === -1){
-    return collection[productId];
+  let productIndex = idValues.indexOf(productId);
+  const target = collection[productIndex];
+  if(productIndex === -1){
+    return collection[productIndex];
   }
-  collection.splice(collection.indexOf(collection[productId]), 1)
+  collection.splice(collection.indexOf(target), 1)
+  idValues.splice(productIndex, 1);
   return collection;
 }
 
