@@ -3,7 +3,7 @@
 {{#each products}}
 <ul>
 <li>
-  <a href="http://www.localhost:8080/products/{{id}}">
+  <a href="/products/{{id}}">
 <h4>{{name}} </h4>
 </a>
 <div>price:{{price}}</div>
@@ -11,4 +11,6 @@
 </li>
 </ul>
 {{/each}}
-<a href="http://www.localhost:8080/products/new">Add Product</a>
+<a href="/products/new">Add Product</a>
+<br>
+<a href="/">Return to Index</a>
