@@ -15,6 +15,7 @@ const products = productDb.all()
 
 router.use(checkData());
 
+
 router.route('/')
   .get((req, res) => {
     res.render('productsList', {
@@ -36,6 +37,7 @@ router.route('/new')
     res.render('newProductForm')
   })
 
+
 router.route('/:id')
   .get((req, res) => {
     let productId = parseFloat(req.params.id);
@@ -52,14 +54,15 @@ router.route('/:id')
 
   .delete((req,res) => {
     let productId = parseFloat(req.params.id);
-    const product = productDb.delete(productId);
-    res.render('productsList', {products:product});
+    productDb.delete(productId);
+    res.render('productsList', {products:products});
   })
+
 
 router.route('/:id/edit')
   .get((req, res) => {
     let productId = parseFloat(req.params.id);
-    const product = productDb.all()[productId];
+    const product = productDb.getById(productId);
     res.render('editProductForm', product);
   })
 

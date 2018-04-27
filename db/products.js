@@ -1,20 +1,20 @@
 const collection = [{
     id: 0,
-    name: 'LOREM',
-    price: 'IPSUM',
-    inventory: 'LOREM IPSUM'
+    name: 'test',
+    price: 123,
+    inventory: 456
   },
   {
     id: 1,
-    name: 'IPSUM',
-    price: 'LOREM',     
-    inventory: 'IPSUM LOREM'
+    name: 'test2',
+    price: 789,     
+    inventory: 101112
   },
   {
     id: 2,
-    name: 'THIS',
-    price: 'IS',
-    inventory: 'A PLACEHOLDER'
+    name: 'test3',
+    price: 131415,
+    inventory: 161718
   }
 ];
 const idValues = collection.map(function (product){
