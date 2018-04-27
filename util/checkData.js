@@ -3,8 +3,8 @@ module.exports = function dataCheck() {
     const method = req.method.toUpperCase();
     const data = req.body;
     let requirements = Object.keys(data);
-    
-    if (requirements.length > 0) {      
+
+    if (requirements.length > 0) {
       if (requirements.includes('id')) {
         requirements.splice(requirements.indexOf('id'), 1)
       }
@@ -15,7 +15,8 @@ module.exports = function dataCheck() {
         if (data[requirements[i]]) {
           return next();
         } else {
-          return res.send('invalid input');
+          res.status(400);
+          return res.render('400');
         }
       }
     }

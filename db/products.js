@@ -65,17 +65,6 @@ function remove(productId){
   return collection;
 };
 
-function invalidName(method){
-  switch (method) {
-    case POST:
-      
-      break;
-  
-    default:
-      break;
-  }
-}
-
 module.exports = {
   all: all,
   getById: getById,
