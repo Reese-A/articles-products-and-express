@@ -1,6 +1,6 @@
 <form action="/products/{{id}}?_method=PUT" method="POST">
   name:
-  <input type="text" name='name' value={{name}} id='editNameInput'>
+  <input type="text" name='name' value="{{name}}"" id='editNameInput'>
   <br> price:
   <input type="text" name='price' value={{price}} id='editPriceInput'> 
   {{#if invalidPrice}}
