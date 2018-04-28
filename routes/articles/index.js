@@ -41,6 +41,7 @@ router.route('/:title')
 
   .put((req,res)=>{
     let reqTitle = req.params.title;
+    console.log(reqTitle);
     res.render('article', articleDb.edit(req.body, reqTitle));
   })
 

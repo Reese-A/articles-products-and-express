@@ -6,7 +6,7 @@ const collection = [{
   },
   {
     title: 'this is a test',
-    author: 'testtest',
+    author: 'test test',
     body: 'testtesttest',
     urlTitle: 'this%20is%20a%20test'
   }
@@ -37,10 +37,14 @@ function create(data) {
 function edit(data, reqTitle){
   let articleIndex = titles.indexOf(reqTitle);
   let selectedArticle = collection[articleIndex];
-  selectedArticle.title = data.title;
+  selectedArticle.title = data.title
+  console.log(data.title);
+  
   selectedArticle.author = data.author;
   selectedArticle.body = data.body;
   titles.splice(articleIndex, 1, data.title);
+  console.log(titles);
+  
   return selectedArticle;
 }
 
@@ -49,10 +53,15 @@ function getByTitle(reqTitle) {
   return collection[articleIndex];
 }
 
+function remove(reqTitle){
+
+}
+
 module.exports = {
   all: all,
   create: create,
   getByTitle: getByTitle,
   edit: edit,
+  delete: remove
 
 };
