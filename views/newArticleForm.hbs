@@ -1,18 +1,14 @@
 <form action="/articles" method='POST'>
   Title:
-  <input type="text" name="title" {{#if invalidAuthor}} value={{title}} {{/if}} {{#if invalidBody}} value={{title}} {{/if}}
-    id='articleTitleInput'>
+  <input type="text" name="title" {{#if invalidTitle}} value="{{title}}" {{/if}} id='articleTitleInput'>
+
+    {{#if invalidTitle}} {{>invalidTitleErr}} {{/if}}
 
   <br> Author:
-  <input type="text" name="author" {{#if invalidAuthor}} value={{author}} {{/if}} {{#if invalidBody}} value={{author}} {{/if}}
-    id='articleAuthorInput'> 
-
-    {{#if invalidAuthor}} {{>invalidAuthorErr}} {{/if}}
+  <input type="text" name="author" {{#if invalidTitle}} value="{{author}}" {{/if}} id='articleAuthorInput'> 
 
   <br> Body:
-  <input type="text" name="body" {{#if invalidAuthor}} value={{body}} {{/if}} {{#if invalidBody}} value={{body}} {{/if}} id="articleBodyInput"> 
-
-  {{#if invalidBody}} {{>invalidBodyErr}} {{/if}}
+  <input type="text" name="body" {{#if invalidTitle}} value="{{body}}" {{/if}} id="articleBodyInput"> 
 
   <br>
   <button type="submit">SUBMIT</button>

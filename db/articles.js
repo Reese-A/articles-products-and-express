@@ -2,13 +2,22 @@ const collection = [{
     title: 'place holder',
     author: 'placeholder',
     body: 'placeholderplaceholderplaceholderplaceholder',
-    urlTitle: 'place%20holder'
+    urlTitle: 'place%20holder',
+    invalidTitle: false
   },
   {
     title: 'this is a test',
     author: 'test test',
     body: 'testtesttest',
-    urlTitle: 'this%20is%20a%20test'
+    urlTitle: 'this%20is%20a%20test',
+    invalidTitle: false
+  },
+  {
+    title: 'Lorem Ipsum',
+    author: 'Ipsum Lorem',
+    body: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    urlTitle: 'Lorem%20Ipsum',
+    invalidTitle: false
   }
 ];
 const titles = collection.map(function (article) {
@@ -20,14 +29,12 @@ function all() {
 }
 
 function create(data) {
-  // if(titles.indexOf(data.title) !== -1){
-
-  // }
   let newArticle = {
     title: data.title,
     author: data.author,
     body: data.body,
-    urlTitle: encodeURI(data.title)
+    urlTitle: encodeURI(data.title),
+    invalidTitle: data.invalidTitle
   } 
   titles.push(data.title);
   collection.push(newArticle);
@@ -40,6 +47,7 @@ function edit(data, reqTitle){
   selectedArticle.title = data.title
   selectedArticle.author = data.author;
   selectedArticle.body = data.body;
+  invalidTitle = data.invalidTitle
   titles.splice(articleIndex, 1, data.title);
   return selectedArticle;
 }
