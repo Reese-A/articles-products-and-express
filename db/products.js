@@ -39,17 +39,14 @@ function getById(productId) {
 
 function create(data) {
   let newId = Math.floor(Math.random() * 100000);
-  console.log('initial: '+newId);
+
 
   function createId() {
     if (!idValues.includes(newId)) {
-      console.log('final: '+newId)
       idValues.push(newId);
-      console.log(idValues);
       return newId;
     }
     newId = Math.floor(Math.random() * 100000)
-    console.log('running: '+newId);
     return createId()
   };
 
@@ -61,7 +58,6 @@ function create(data) {
     invalidPrice: data.invalidPrice,
     invalidInventory: data.invalidInventory
   };
-  console.log(newProduct);
   
   collection.push(newProduct);
   return newProduct;

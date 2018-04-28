@@ -34,7 +34,7 @@ function create(data) {
     author: data.author,
     body: data.body,
     urlTitle: encodeURI(data.title),
-    invalidTitle: false,
+    invalidTitle: data.invalidTitle,
   }
   titles.push(data.title);
   collection.push(newArticle);
@@ -61,9 +61,6 @@ function getByTitle(reqTitle) {
 function remove(reqTitle) {
   let articleIndex = titles.indexOf(reqTitle);
   const target = collection[articleIndex];
-  if (articleIndex === -1) {
-
-  }
   collection.splice(collection.indexOf(target), 1);
   titles.splice(articleIndex, 1);
   return collection;

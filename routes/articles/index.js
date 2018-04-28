@@ -20,13 +20,17 @@ router.route('/')
   })
 
   .post((req, res) => {
-    if (validation(req, res)) {
+    if (postValidation(req, res)) {
       articleDb.create(req.body);
       res.render('articlesList', {
         articles: articles
       })
     } else {
-      let invalidArticle = articleDb.getByTitle(req.body.title);
+      req.body.title += '*';
+      let invalidArticle = articleDb.create(req.body);
+      console.log(invalidArticle);
+      console.log(invalidArticle.title);
+      articleDb.delete(invalidArticle.title);
       res.render('newArticleForm', invalidArticle);
     }
   })
@@ -46,12 +50,12 @@ router.route('/:title')
   })
 
   .put((req, res) => {
-    let reqTitle = req.params.title;
-    if (validation(req, res)) {
+    let reqTitle = req.params.title;    
+    // if (validation(req, res)) {
       res.render('article', articleDb.edit(req.body, reqTitle));
-    } else {
-      res.render('editArticleForm', articleDb.edit(req.body, reqTitle))
-    }
+    // } else {
+    //   res.render('editArticleForm', articleDb.edit(req.body, reqTitle))
+    // }
   })
 
   .delete((req, res) => {
@@ -69,20 +73,32 @@ router.route('/:title/edit')
     res.render('editArticleForm', article);
   })
 
-function validation(req, res) {
+function postValidation(req,res) {
   let titleCheck = articleDb.getByTitle(req.body.title);
-  let decodeUrl = decodeURI(req.url);
-  let uri = decodeUrl.split('/')[1].split('?')[0];
-  if (titleCheck) {
-    if (titleCheck.title === uri) {
-      req.body.invalidTitle = false;
-      return true;
-    }
+  if(titleCheck){
     req.body.invalidTitle = true;
-    return false
+    return false;
   }
   req.body.invalidTitle = false;
-  return true;
+  return true
 }
+
+
+
+// function validation(req, res) {
+//   let titleCheck = articleDb.getByTitle(req.body.title);
+//   let decodeUrl = decodeURI(req.url);
+//   let uri = decodeUrl.split('/')[1].split('?')[0];
+//   if (titleCheck) {
+//     if (titleCheck.title === uri) {
+//       req.body.invalidTitle = false;
+//       return true;
+//     }
+//     req.body.invalidTitle = true;
+//     return false
+//   }
+//   req.body.invalidTitle = false;
+//   return true;
+// }
 
 module.exports = router;
