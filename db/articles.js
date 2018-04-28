@@ -50,7 +50,14 @@ function getByTitle(reqTitle) {
 }
 
 function remove(reqTitle){
+  let articleIndex = titles.indexOf(reqTitle);
+  const target = collection[articleIndex];
+  if (articleIndex === -1){
 
+  }
+  collection.splice(collection.indexOf(target), 1);
+  titles.splice(articleIndex, 1);
+  return collection;
 }
 
 module.exports = {

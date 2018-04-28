@@ -45,6 +45,12 @@ router.route('/:title')
     res.render('article', articleDb.edit(req.body, reqTitle));
   })
 
+  .delete((req, res) =>{
+    let reqTitle = req.params.title;
+    articleDb.delete(reqTitle);
+    res.render('articlesList', {articles: articles});
+  })
+
 router.route('/:title/edit')
   .get((req, res) => {
     let reqTitle = req.params.title;
