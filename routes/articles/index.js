@@ -27,7 +27,6 @@ router.route('/')
       })
     }else{
       let invalidArticle = articleDb.create(req.body);
-      console.log(invalidArticle);
       res.render('newArticleForm', invalidArticle);
     }
   })
@@ -48,7 +47,7 @@ router.route('/:title')
 
   .put((req, res) => {
     let reqTitle = req.params.title;
-    console.log(reqTitle);
+    console.log('title: ' + reqTitle);
     res.render('article', articleDb.edit(req.body, reqTitle));
   })
 
@@ -69,9 +68,7 @@ router.route('/:title/edit')
 
 function validation(req, res) {
   let titleCheck = articleDb.getByTitle(req.body.title);
-  console.log(titleCheck);
-  
-  if (titleCheck.title !== '') {
+  if (titleCheck) {
     req.body.invalidTitle = true;
     return false;
   }
