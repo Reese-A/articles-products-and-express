@@ -38,7 +38,7 @@ function getById(productId) {
 }
 
 function create(data) {
-  let newId = Math.floor(Math.random() * 10000);
+  let newId = Math.floor(Math.random() * 1000000);
   let valueIndex = idValues.indexOf(newId)
 
   function createId() {
@@ -47,7 +47,7 @@ function create(data) {
       idValues.push(newId);
       return newId;
     }
-    newId = Math.floor(Math.random() * 10000)
+    newId = Math.floor(Math.random() * 1000000)
     valueIndex = idValues.indexOf(newId)
     createId()
   }

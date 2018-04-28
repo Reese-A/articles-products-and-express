@@ -19,7 +19,16 @@ function all() {
   return collection;
 }
 
-function add(res, req) {
+function create(data) {
+  let newArticle = {
+    title: data.title,
+    author: data.author,
+    body: data.body,
+    urlTitle: encodeURI(data.title)
+  }
+  titles.push(data.title);
+  collection.push(newArticle);
+  return newArticle;
 
 }
 
@@ -30,7 +39,7 @@ function getByTitle(titleUrl) {
 
 module.exports = {
   all: all,
-  add: add,
+  create: create,
   getByTitle: getByTitle,
 
 };

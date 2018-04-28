@@ -19,6 +19,17 @@ router.route('/')
     })
   })
 
+  .post((req,res)=>{
+    const data = req.body;
+    articleDb.create(data);
+    res.render('articlesList', {articles: articles});
+  })
+
+router.route('/new')
+  .get((req, res) => {
+    res.render('newArticleForm')
+  })
+
 router.route('/:title')
   .get((req, res) => {
     let titleUrl = req.params.title;
