@@ -25,16 +25,30 @@ router.route('/')
     res.render('articlesList', {articles: articles});
   })
 
+
 router.route('/new')
   .get((req, res) => {
     res.render('newArticleForm')
   })
 
+
 router.route('/:title')
   .get((req, res) => {
-    let titleUrl = req.params.title;
-    const article = articleDb.getByTitle(titleUrl)
+    let reqTitle = req.params.title;
+    const article = articleDb.getByTitle(reqTitle)
     res.render('article', article);
+  })
+
+  .put((req,res)=>{
+    let reqTitle = req.params.title;
+    res.render('article', articleDb.edit(req.body, reqTitle));
+  })
+
+router.route('/:title/edit')
+  .get((req, res) => {
+    let reqTitle = req.params.title;
+    const article = articleDb.getByTitle(reqTitle);
+    res.render('editArticleForm', article);
   })
 
 module.exports = router;

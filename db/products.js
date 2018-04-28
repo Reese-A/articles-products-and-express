@@ -67,20 +67,20 @@ function create(data) {
 
 function edit(data, productId) {
   let productIndex = idValues.indexOf(productId);
-  let selectedObj = collection[productIndex];
-  selectedObj.name = data.name;
-  selectedObj.price = parseFloat(data.price);
-  selectedObj.inventory = parseFloat(data.inventory);
-  selectedObj.invalidPrice = data.invalidPrice;
-  selectedObj.invalidInventory = data.invalidInventory
-  return selectedObj;
+  let selectedProduct = collection[productIndex];
+  selectedProduct.name = data.name;
+  selectedProduct.price = parseFloat(data.price);
+  selectedProduct.inventory = parseFloat(data.inventory);
+  selectedProduct.invalidPrice = data.invalidPrice;
+  selectedProduct.invalidInventory = data.invalidInventory
+  return selectedProduct;
 };
 
 function remove(productId) {
   let productIndex = idValues.indexOf(productId);
   const target = collection[productIndex];
   if (productIndex === -1) {
-    return collection[productIndex];
+    return collection;
   }
   collection.splice(collection.indexOf(target), 1)
   idValues.splice(productIndex, 1);

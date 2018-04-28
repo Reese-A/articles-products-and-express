@@ -20,20 +20,32 @@ function all() {
 }
 
 function create(data) {
+  // if(titles.indexOf(data.title) !== -1){
+
+  // }
   let newArticle = {
     title: data.title,
     author: data.author,
     body: data.body,
     urlTitle: encodeURI(data.title)
-  }
+  } 
   titles.push(data.title);
   collection.push(newArticle);
   return newArticle;
-
 }
 
-function getByTitle(titleUrl) {
-  let articleIndex = titles.indexOf(titleUrl);
+function edit(data, reqTitle){
+  let articleIndex = titles.indexOf(reqTitle);
+  let selectedArticle = collection[articleIndex];
+  selectedArticle.title = data.title;
+  selectedArticle.author = data.author;
+  selectedArticle.body = data.body;
+  titles.splice(articleIndex, 1, data.title);
+  return selectedArticle;
+}
+
+function getByTitle(reqTitle) {
+  let articleIndex = titles.indexOf(reqTitle); 
   return collection[articleIndex];
 }
 
@@ -41,5 +53,6 @@ module.exports = {
   all: all,
   create: create,
   getByTitle: getByTitle,
+  edit: edit,
 
 };
