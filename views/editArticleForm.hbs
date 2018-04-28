@@ -1,10 +1,13 @@
 <form action="/articles/{{title}}?_method=PUT" method="POST">
   Title:
   <input type="text" name='title' value="{{title}}" id='editTitleInput'>
+  {{#if invalidTitle}} 
+  {{>invalidTitleErr}}
+  {{/if}}
   <br> Author:
-  <input type="text" name='author' value="{{author}}" id='editAuthorInput'> {{#if invalidAuthor}} {{>invalidAuthorErr}} {{/if}}
+  <input type="text" name='author' value="{{author}}" id='editAuthorInput'>
   <br> Body:
-  <input type="text" name='body' value="{{body}}" id='editBodyInput'> {{#if invalidBody}} {{>invalidBodyErr}} {{/if}}
+  <input type="text" name='body' value="{{body}}" id='editBodyInput'>
   <br>
   <button type="submit">SUBMIT CHANGES</button>
   <a href="/articles/{{title}}">Return to article page</a>

@@ -54,6 +54,8 @@ router.route('/:id')
   .put((req, res) => {
     let productId = parseFloat(req.params.id);
     if (validation(req, res)) {
+      console.log(req.body);
+      
       res.render('product', productDb.edit(req.body, productId));
     }else{
       res.render('editProductForm', productDb.edit(req.body, productId))

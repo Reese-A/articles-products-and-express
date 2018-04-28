@@ -34,33 +34,34 @@ function create(data) {
     author: data.author,
     body: data.body,
     urlTitle: encodeURI(data.title),
-    invalidTitle: data.invalidTitle
-  } 
+    invalidTitle: false,
+  }
   titles.push(data.title);
   collection.push(newArticle);
   return newArticle;
 }
 
-function edit(data, reqTitle){
+function edit(data, reqTitle) {
   let articleIndex = titles.indexOf(reqTitle);
   let selectedArticle = collection[articleIndex];
   selectedArticle.title = data.title
   selectedArticle.author = data.author;
   selectedArticle.body = data.body;
-  invalidTitle = data.invalidTitle
+  selectedArticle.urlTitle = encodeURI(data.title);
+  selectedArticle.invalidTitle = data.invalidTitle;
   titles.splice(articleIndex, 1, data.title);
   return selectedArticle;
 }
 
 function getByTitle(reqTitle) {
-  let articleIndex = titles.indexOf(reqTitle); 
+  let articleIndex = titles.indexOf(reqTitle);
   return collection[articleIndex];
 }
 
-function remove(reqTitle){
+function remove(reqTitle) {
   let articleIndex = titles.indexOf(reqTitle);
   const target = collection[articleIndex];
-  if (articleIndex === -1){
+  if (articleIndex === -1) {
 
   }
   collection.splice(collection.indexOf(target), 1);
