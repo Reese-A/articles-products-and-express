@@ -25,7 +25,7 @@ router.route('/')
       res.render('articlesList', {
         articles: articles
       })
-    }else{
+    } else {
       let invalidArticle = articleDb.create(req.body);
       res.render('newArticleForm', invalidArticle);
     }
@@ -46,9 +46,13 @@ router.route('/:title')
   })
 
   .put((req, res) => {
-    let reqTitle = req.params.title;
-    console.log('title: ' + reqTitle);
-    res.render('article', articleDb.edit(req.body, reqTitle));
+    if (validation(req, res)) {
+      console.log('pass');
+      let reqTitle = req.params.title;
+      res.render('article', articleDb.edit(req.body, reqTitle));
+    } else {
+      console.log('validation failed');
+    }
   })
 
   .delete((req, res) => {
@@ -68,9 +72,14 @@ router.route('/:title/edit')
 
 function validation(req, res) {
   let titleCheck = articleDb.getByTitle(req.body.title);
-  if (titleCheck) {
+  let decodeUrl = decodeURI(req.url);
+  let uri = decodeUrl.split('/')[1].split('?')[0];
+  if (titleCheck){
+    if (titleCheck.title === uri){
+      return true;
+    }
     req.body.invalidTitle = true;
-    return false;
+    return false
   }
   return true;
 }
