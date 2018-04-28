@@ -1,14 +1,19 @@
 const collection = [{
-    title: 'place',
-    author: 'holder',
-    body: 'placeholder',
+    title: 'place holder',
+    author: 'placeholder',
+    body: 'placeholderplaceholderplaceholderplaceholder',
+    urlTitle: 'place%20holder'
   },
   {
-    title: 'test',
+    title: 'this is a test',
     author: 'testtest',
-    body: 'testtesttest'
+    body: 'testtesttest',
+    urlTitle: 'this%20is%20a%20test'
   }
 ];
+const titles = collection.map(function (article) {
+  return article.title
+});
 
 function all() {
   return collection;
@@ -18,8 +23,9 @@ function add(res, req) {
 
 }
 
-function getByTitle(){
-
+function getByTitle(titleUrl) {
+  let articleIndex = titles.indexOf(titleUrl);
+  return collection[articleIndex];
 }
 
 module.exports = {

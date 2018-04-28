@@ -19,4 +19,11 @@ router.route('/')
     })
   })
 
+router.route('/:title')
+  .get((req, res) => {
+    let titleUrl = req.params.title;
+    const article = articleDb.getByTitle(titleUrl)
+    res.render('article', article);
+  })
+
 module.exports = router;
