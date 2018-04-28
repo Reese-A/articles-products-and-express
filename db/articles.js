@@ -38,13 +38,9 @@ function edit(data, reqTitle){
   let articleIndex = titles.indexOf(reqTitle);
   let selectedArticle = collection[articleIndex];
   selectedArticle.title = data.title
-  console.log(data.title);
-  
   selectedArticle.author = data.author;
   selectedArticle.body = data.body;
   titles.splice(articleIndex, 1, data.title);
-  console.log(titles);
-  
   return selectedArticle;
 }
 

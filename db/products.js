@@ -38,19 +38,20 @@ function getById(productId) {
 }
 
 function create(data) {
-  let newId = Math.floor(Math.random() * 1000000);
-  let valueIndex = idValues.indexOf(newId)
+  let newId = Math.floor(Math.random() * 100000);
+  console.log('initial: '+newId);
 
   function createId() {
-    if (valueIndex === -1) {
-      console.log(newId)
+    if (!idValues.includes(newId)) {
+      console.log('final: '+newId)
       idValues.push(newId);
+      console.log(idValues);
       return newId;
     }
-    newId = Math.floor(Math.random() * 1000000)
-    valueIndex = idValues.indexOf(newId)
-    createId()
-  }
+    newId = Math.floor(Math.random() * 100000)
+    console.log('running: '+newId);
+    return createId()
+  };
 
   let newProduct = {
     id: createId(),
@@ -59,8 +60,9 @@ function create(data) {
     inventory: parseFloat(data.inventory),
     invalidPrice: data.invalidPrice,
     invalidInventory: data.invalidInventory
-  }
-
+  };
+  console.log(newProduct);
+  
   collection.push(newProduct);
   return newProduct;
 };
