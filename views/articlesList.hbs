@@ -1,16 +1,19 @@
-<h1>ARTICLES LIST</h1>
+<div id = 'articleTitleBox'>
+<h1>ARTICLES</h1>
+</div>
 
-{{#each articles}}
-<ul>
-  <li>
-    <a href="/articles/{{title}}">
-      <h3>{{title}} </h3>
-    </a>
-    <div>By:{{author}}</div>
-    <div>{{body}}</div>
-  </li>
-</ul>
-{{/each}}
 <a href="/articles/new">Add Article</a>
 <br>
 <a href="/">Return to Index</a>
+
+<div id = 'articlesBody'>
+{{#each articles}}
+<div class = 'articleBox'>
+    <div>
+      <a class = 'articleLink' href="/articles/{{title}}">{{title}}</a>
+    </div>
+    <div>By:{{author}}</div>
+    <div>{{body}}</div>
+    </div>
+{{/each}}
+</div>

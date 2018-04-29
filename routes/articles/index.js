@@ -28,8 +28,6 @@ router.route('/')
     } else {
       req.body.title += '*';
       let invalidArticle = articleDb.create(req.body);
-      console.log(invalidArticle);
-      console.log(invalidArticle.title);
       articleDb.delete(invalidArticle.title);
       res.render('newArticleForm', invalidArticle);
     }
@@ -44,17 +42,20 @@ router.route('/new')
 
 router.route('/:title')
   .get((req, res) => {
+    console.log(req.params);
     let reqTitle = req.params.title;
     const article = articleDb.getByTitle(reqTitle)
     res.render('article', article);
   })
 
   .put((req, res) => {
-    let reqTitle = req.params.title;    
-    if (putValidation(req, res)) {
-      res.render('article', articleDb.edit(req.body, reqTitle));
+    let reqTitle = req.params.title;
+    if (putValidation(req)) {
+    let edited = articleDb.edit(req.body, reqTitle)
+     res.redirect(`/articles/${edited.urlTitle}`)
     } else {
-      res.render('editArticleForm', articleDb.edit(req.body, reqTitle))
+      req.body.urlTitle = encodeURI(req.params.title);
+      res.render('editArticleForm', req.body)
     }
   })
 
@@ -68,6 +69,7 @@ router.route('/:title')
 
 router.route('/:title/edit')
   .get((req, res) => {
+    console.log(req.params.title);
     let reqTitle = req.params.title;
     const article = articleDb.getByTitle(reqTitle);
     res.render('editArticleForm', article);
@@ -85,11 +87,11 @@ function postValidation(req,res) {
 
 function putValidation(req, res) {
   let titleCheck = articleDb.getByTitle(req.body.title);
-  // let decodeUrl = decodeURI(req.url);
-  // let uri = decodeUrl.split('/')[1].split('?')[0];
-  let uri = req.url.split('/')[1].split('?')[0]
+  let decodeUrl = decodeURI(req.url);
+  let uri = decodeUrl.split('/')[1].split('?')[0];
+  // let uri = req.params.title
   if(titleCheck){
-    if(titleCheck.urlTitle === uri){
+    if(titleCheck.title === uri){
       req.body.invalidTitle = false;
       return true;
     }

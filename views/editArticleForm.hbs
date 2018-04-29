@@ -1,4 +1,5 @@
-<form action="/articles/{{title}}?_method=PUT" method="POST">
+<form action="/articles/{{urlTitle}}?_method=PUT" method="POST">
+  {{urlTitle}}
   Title:
   <input type="text" name='title' value="{{title}}" id='editTitleInput'>
   {{#if invalidTitle}} 
