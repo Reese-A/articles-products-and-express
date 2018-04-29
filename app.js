@@ -6,19 +6,21 @@ const methodOverride = require('method-override');
 const PORT = process.env.PORT || 8080;
 const exphbs = require('express-handlebars');
 app.engine('.hbs', exphbs({
-  extname: '.hbs'
+  extname: '.hbs',
+  defaultLayout: 'app'
 }));
 app.set('view engine', '.hbs');
 
 app.use(methodOverride('_method'))
 
+
 app.use(bodyParser.urlencoded({
   extended: true
 }));
 
-app.use(express.static('./public'));
-
 app.use(methodOverride('_method'));
+
+app.use(express.static('./public'));
 
 app.use('/', routes);
 
