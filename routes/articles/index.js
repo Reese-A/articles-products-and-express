@@ -51,11 +51,11 @@ router.route('/:title')
 
   .put((req, res) => {
     let reqTitle = req.params.title;    
-    // if (validation(req, res)) {
+    if (putValidation(req, res)) {
       res.render('article', articleDb.edit(req.body, reqTitle));
-    // } else {
-    //   res.render('editArticleForm', articleDb.edit(req.body, reqTitle))
-    // }
+    } else {
+      res.render('editArticleForm', articleDb.edit(req.body, reqTitle))
+    }
   })
 
   .delete((req, res) => {
@@ -83,7 +83,22 @@ function postValidation(req,res) {
   return true
 }
 
-
+function putValidation(req, res) {
+  let titleCheck = articleDb.getByTitle(req.body.title);
+  // let decodeUrl = decodeURI(req.url);
+  // let uri = decodeUrl.split('/')[1].split('?')[0];
+  let uri = req.url.split('/')[1].split('?')[0]
+  if(titleCheck){
+    if(titleCheck.urlTitle === uri){
+      req.body.invalidTitle = false;
+      return true;
+    }
+    req.body.invalidTitle = true;
+    return false;
+  }
+  req.body.invalidTitle = false;
+  return true 
+}
 
 // function validation(req, res) {
 //   let titleCheck = articleDb.getByTitle(req.body.title);
