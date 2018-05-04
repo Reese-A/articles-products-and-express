@@ -1,23 +1,14 @@
 const express = require('express');
 const router = express.Router();
-// const exphbs = require('express-handlebars');
-// const app = express();
-// const methodOverride = require('method-override');
-// app.use(methodOverride('_method'))
 const checkData = require('../../util/checkData');
-// app.engine('.hbs', exphbs({
-//   extname: '.hbs'
-// }));
-// app.set('view engine', '.hbs');
 const productDb = require('../../db/products');
 
-const products = productDb.all()
 
 router.use(checkData());
 
-
 router.route('/')
   .get((req, res) => {
+    const products = productDb.all()
     res.render('productsList', {
       products: products
     })
@@ -25,15 +16,14 @@ router.route('/')
 
   .post((req, res) => {
     if (validation(req, res)) {
+      const products = productDb.all()
       const data = req.body;
       productDb.create(data);
-      res.render('productsList', {
-        products: products
-      })
+      res.redirect('/products')
     } else {
       let invalidProduct = productDb.create(req.body)
-      productDb.delete(parseFloat(invalidProduct.id))
       res.render('newProductForm', invalidProduct)
+      productDb.delete(parseFloat(invalidProduct.id))
     }
   })
 
@@ -46,25 +36,25 @@ router.route('/new')
 
 router.route('/:id')
   .get((req, res) => {
-    let productId = parseFloat(req.params.id);
+    let productId = parseInt(req.params.id);
     const product = productDb.getById(productId);
     res.render('product', product);
   })
 
   .put((req, res) => {
-    let productId = parseFloat(req.params.id);
+    let productId = parseInt(req.params.id);
     if (validation(req, res)) {
       console.log(req.body);
-      
-      res.render('product', productDb.edit(req.body, productId));
-    }else{
+      let edited = productDb.edit(req.body, productId);
+      res.redirect(`/products/${edited.id}`);
+    } else {
       res.render('editProductForm', productDb.edit(req.body, productId))
     }
   })
 
   .delete((req, res) => {
-    let productId = parseFloat(req.params.id);
-    productDb.delete(productId);
+    let productId = parseInt(req.params.id);
+    const products = productDb.delete(productId);
     res.render('productsList', {
       products: products
     });
@@ -73,7 +63,7 @@ router.route('/:id')
 
 router.route('/:id/edit')
   .get((req, res) => {
-    let productId = parseFloat(req.params.id);
+    let productId = parseInt(req.params.id);
     const product = productDb.getById(productId);
     res.render('editProductForm', product);
   })
@@ -81,7 +71,7 @@ router.route('/:id/edit')
 function validation(req, res) {
   let priceNum = Number(req.body.price);
   let inventoryNum = Number(req.body.inventory);
-  if (isNaN(priceNum) && isNaN(inventoryNum)){
+  if (isNaN(priceNum) && isNaN(inventoryNum)) {
     req.body.invalidPrice = true;
     req.body.invalidInventory = true;
     return false;

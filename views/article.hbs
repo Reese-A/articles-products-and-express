@@ -1,9 +1,9 @@
 <h2>{{title}}</h2>
 <h4>By: {{author}}</h4>
 <div>{{body}}</div>
-<a href="/articles/{{title}}/edit">Edit</a>
+<a href="/articles/{{urlTitle}}/edit">Edit</a>
 <br>
 <a href="/articles">Return to articles list</a>
-<form action="/articles/{{title}}?_method=DELETE" method="POST">
+<form action="/articles/{{urlTitle}}?_method=DELETE" method="POST">
   <button type="submit">DELETE ARTICLE</button>
 </form>

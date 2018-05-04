@@ -44,7 +44,7 @@ function create(data) {
 function edit(data, reqTitle) {
   let articleIndex = titles.indexOf(reqTitle);
   let selectedArticle = collection[articleIndex];
-  selectedArticle.title = data.title
+  selectedArticle.title = data.title;
   selectedArticle.author = data.author;
   selectedArticle.body = data.body;
   selectedArticle.urlTitle = encodeURI(data.title);

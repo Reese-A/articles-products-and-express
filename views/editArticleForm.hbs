@@ -1,5 +1,4 @@
 <form action="/articles/{{urlTitle}}?_method=PUT" method="POST">
-  {{urlTitle}}
   Title:
   <input type="text" name='title' value="{{title}}" id='editTitleInput'>
   {{#if invalidTitle}} 
@@ -11,5 +10,5 @@
   <input type="text" name='body' value="{{body}}" id='editBodyInput'>
   <br>
   <button type="submit">SUBMIT CHANGES</button>
-  <a href="/articles/{{title}}">Return to article page</a>
+  <a href="/articles/{{urlTitle}}">Return to article page</a>
 </form>
