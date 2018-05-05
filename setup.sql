@@ -5,10 +5,11 @@ DROP TABLE IF EXISTS products;
 
 CREATE TABLE articles
 (
-  id serial PRIMARY KEY,
+  id serial,
   title varchar(255) UNIQUE CHECK (title != ''),
   author varchar(50) CHECK (author != ''),
-  body text CHECK (body != '')
+  body text CHECK (body != ''),
+  urlTitle varchar(255) PRIMARY KEY UNIQUE CHECK (urlTitle != '')
 );
 
 CREATE TABLE products
