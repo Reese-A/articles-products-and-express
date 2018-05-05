@@ -125,15 +125,17 @@ router.route('/:id/edit')
     return knex('products')
       .select().where('id', productId)
       .then((data) => {
-        console.log(data);
-        
+        if(data.length === 0){
+          throw new Error('ERROR 404 NOT FOUND');
+        }
         return res.render('editProductForm', data[0])
       })
       .catch((err) => {
-        console.log('GET EDIT PAGE ERROR', err);
-        return res.json({
-          'message': 'ERROR'
-        });
+        console.log('GET EDIT PAGE', err);
+        if (err.message === errors.notFound.message) {
+          return res.status(404).render('error', errors.notFound);
+        }
+        return res.status(500).render('error', errors.serverErr);
       });
   });
 
