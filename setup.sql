@@ -15,7 +15,7 @@ CREATE TABLE articles
 CREATE TABLE products
 (
   id serial PRIMARY KEY,
-  name varchar(255),
+  name varchar(255) CHECK (name != ''),
   price money,
   inventory integer CHECK (inventory > 0)
 );

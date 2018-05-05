@@ -1,0 +1,12 @@
+<form action="/products/{{id}}?_method=PUT" method = 'POST'>
+Name: 
+<input type="text" name = 'name' value = {{name}} id = 'editNameInput'>
+<br>Price:
+<input type="text" name="price" value = {{price}} id="editPriceInput">
+<br>Inventory:
+<input type="text" name="inventory" value = {{inventory}} id="editInventoryInput">
+<br>
+<button type = 'submit'>SUBMIT CHANGES</button>
+<br>
+<a href="/products/{{id}}">Return to product page</a>
+</form>
