@@ -1,21 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const knex = require('../../db/knex.js');
-
-const errors = {
-  notFound: {
-    message: 'ERROR 404 NOT FOUND',
-    instructions: 'Please enter a valid url'
-  },
-  badRequest: {
-    message: 'ERROR 400 BAD REQUEST',
-    instructions: 'Please provide valid values for all fields before submitting'
-  },
-  serverErr: {
-    message: 'ERROR 500 INTERNAL SERVER ERROR',
-    instructions: 'Server has encountered an error'
-  }
-}
+const errors = require('../../errors');
 
 
 router.route('/')
@@ -110,7 +96,7 @@ router.route('/:id')
         if (data.length === 0) {
           throw new Error('ERROR 404 NOT FOUND')
         }
-        return res.redirect('/products');
+        return res.status(200).redirect('/products');
       })
       .catch((err) => {
         console.log('DELETE', err);
