@@ -27,6 +27,9 @@ router.route('/:id')
         id: productId
       }).select()
       .then((data)=>{
+        if(data.length === 0){
+          return res.status(404).render('404');
+        }
         return res.render('product', data[0]);
       })
       .catch((err)=>{
