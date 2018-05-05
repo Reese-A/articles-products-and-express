@@ -1,5 +1,19 @@
 const express = require('express');
 const router = express.Router();
+const knex = require('../../db/knex.js');
 
+router.route('/')
+  .get((req,res) => {
+    return knex
+      .select().table('products')
+      .then((data) => {
+        return res.render('productsList', {products: data})
+      })
+      .catch((err)=>{
+        return res.json({
+          'message': 'ERROR'
+        })
+      });
+  })
 
 module.exports = router;
