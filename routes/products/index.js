@@ -107,14 +107,17 @@ router.route('/:id')
       .returning('*')
       .then((data) => {
         console.log(data);
-        if (!data) {
-          return res.status(400).render('400');
+        if (data.length === 0) {
+          throw new Error('ERROR 404 NOT FOUND')
         }
         return res.redirect('/products');
       })
       .catch((err) => {
-        console.log('DELETE ERROR', err);
-        return res.status(400).render('400');
+        console.log('DELETE', err);
+        if (err.message === errors.notFound.message) {
+          return res.status(404).render('error', errors.notFound);
+        }
+        return res.status(500).render('error', errors.serverErr);
       })
   })
 
