@@ -18,12 +18,23 @@ router.route('/')
       });
   })
 
+  .post((req, res) =>{
+    console.log(req.body);
+    return knex('products')
+    .insert(req.body)
+    .then((data)=>{
+      return res.redirect('/products')
+    })
+    .catch((err) =>{
+      return res.status(400).render('400');
+    })
+  })
+
 
 router.route('/new')
   .get((req,res) => {
     return res.render('newProductForm')
   });
-
 
 
 router.route('/:id')

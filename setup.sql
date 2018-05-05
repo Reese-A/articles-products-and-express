@@ -9,7 +9,7 @@ CREATE TABLE articles
   title varchar(255) UNIQUE CHECK (title != ''),
   author varchar(50) CHECK (author != ''),
   body text CHECK (body != ''),
-  urlTitle varchar(255) PRIMARY KEY UNIQUE CHECK (urlTitle != '')
+  url_title varchar(255) PRIMARY KEY UNIQUE
 );
 
 CREATE TABLE products
