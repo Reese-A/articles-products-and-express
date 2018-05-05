@@ -60,8 +60,7 @@ router.route('/:id')
     const productId = req.params.id;
     const updatedProd = req.body;
     return knex('products')
-      .update(updatedProd)
-      .where('id', productId)
+      .update(updatedProd).where('id', productId)
       .returning('*')
       .then((data) => {
         console.log(data);
@@ -71,8 +70,27 @@ router.route('/:id')
         return res.redirect(`/products/${productId}`)
       })
       .catch((err)=>{
+        console.log('PUT ERROR', err);
         return res.status(400).render('400');
       });
+  })
+
+  .delete((req,res)=>{
+    const productId = req.params.id;
+    return knex('products')
+    .delete().where('id', productId)
+    .returning('*')
+    .then((data)=>{
+      console.log(data);
+      if(!data){
+        return res.status(400).render('400');
+      }
+      return res.redirect('/products');
+    })
+    .catch((err)=>{
+      console.log('DELETE ERROR', err);
+      return res.status(400).render('400');
+    })
   })
 
 
@@ -90,5 +108,6 @@ router.route('/:id/edit')
         });
       });
   });
+
 
 module.exports = router;
