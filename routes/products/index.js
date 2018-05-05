@@ -83,15 +83,20 @@ router.route('/:id')
       .update(updatedProd).where('id', productId)
       .returning('*')
       .then((data) => {
-        console.log(data);
         if (data.length === 0) {
-          return res.status(400).render('400');
+          throw new Error('ERROR 404 NOT FOUND')
         }
         return res.redirect(`/products/${productId}`)
       })
       .catch((err) => {
         console.log('PUT ERROR', err);
-        return res.status(400).render('400');
+        if(err.message === errors.notFound.message){
+        return res.status(404).render('error', errors.notFound);
+        }
+        if (err.message.includes('invalid input syntax')) {
+          return res.status(400).render('error', errors.badRequest);
+        }
+        return res.status(500).render('error', errors.serverErr);
       });
   })
 
@@ -120,6 +125,8 @@ router.route('/:id/edit')
     return knex('products')
       .select().where('id', productId)
       .then((data) => {
+        console.log(data);
+        
         return res.render('editProductForm', data[0])
       })
       .catch((err) => {
