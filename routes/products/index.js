@@ -19,6 +19,13 @@ router.route('/')
   })
 
 
+router.route('/new')
+  .get((req,res) => {
+    return res.render('newProductForm')
+  });
+
+
+
 router.route('/:id')
   .get((req, res) => {
     const productId = req.params.id;
