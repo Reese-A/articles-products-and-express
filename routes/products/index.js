@@ -2,6 +2,22 @@ const express = require('express');
 const router = express.Router();
 const knex = require('../../db/knex.js');
 
+const errors = {
+  notFound: {
+    message: 'ERROR 404 NOT FOUND',
+    instructions: 'Please enter a valid url'
+  },
+  badRequest: {
+    message: 'ERROR 400 BAD REQUEST',
+    instructions: 'Please provide valid values for all fields before submitting'
+  },
+  serverErr: {
+    message: 'ERROR 500 INTERNAL SERVER ERROR',
+    instructions: 'Server has encountered an error'
+  }
+}
+
+
 router.route('/')
   .get((req, res) => {
     return knex
@@ -12,9 +28,8 @@ router.route('/')
         })
       })
       .catch((err) => {
-        return res.json({
-          'message': 'ERROR'
-        })
+        console.log('GET PRODUCTS LIST', err);
+        return res.status(500).render('error', errors.serverErr);
       });
   })
 
@@ -23,11 +38,14 @@ router.route('/')
     return knex('products')
       .insert(req.body)
       .then((data) => {
-        return res.redirect('/products')
+        return res.status(200).redirect('/products')
       })
       .catch((err) => {
-        console.log(err);
-        return res.status(400).render('400');
+        console.log('POST NEW PRODUCT', err.name);
+        if(err.message.includes('invalid input syntax')){
+        return res.status(400).render('error', errors.badRequest);
+        }
+        return res.status(500).render('error', errors.serverErr);
       })
   })
 
@@ -45,14 +63,16 @@ router.route('/:id')
       .select().where('id', productId)
       .then((data) => {
         if (data.length === 0) {
-          return res.status(404).render('404');
+          throw new Error('ERROR 404 NOT FOUND');
         }
         return res.render('product', data[0]);
       })
       .catch((err) => {
-        return res.json({
-          'message': 'ERROR'
-        })
+        console.log(err);
+        if (err.message === errors.notFound.message) {
+          return res.status(404).render('error', errors.notFound);
+        }
+        return res.status(500).render('error', errors.serverErr);
       });
   })
 
@@ -64,33 +84,33 @@ router.route('/:id')
       .returning('*')
       .then((data) => {
         console.log(data);
-        if(data.length === 0){
+        if (data.length === 0) {
           return res.status(400).render('400');
         }
         return res.redirect(`/products/${productId}`)
       })
-      .catch((err)=>{
+      .catch((err) => {
         console.log('PUT ERROR', err);
         return res.status(400).render('400');
       });
   })
 
-  .delete((req,res)=>{
+  .delete((req, res) => {
     const productId = req.params.id;
     return knex('products')
-    .delete().where('id', productId)
-    .returning('*')
-    .then((data)=>{
-      console.log(data);
-      if(!data){
+      .delete().where('id', productId)
+      .returning('*')
+      .then((data) => {
+        console.log(data);
+        if (!data) {
+          return res.status(400).render('400');
+        }
+        return res.redirect('/products');
+      })
+      .catch((err) => {
+        console.log('DELETE ERROR', err);
         return res.status(400).render('400');
-      }
-      return res.redirect('/products');
-    })
-    .catch((err)=>{
-      console.log('DELETE ERROR', err);
-      return res.status(400).render('400');
-    })
+      })
   })
 
 
@@ -103,6 +123,7 @@ router.route('/:id/edit')
         return res.render('editProductForm', data[0])
       })
       .catch((err) => {
+        console.log('GET EDIT PAGE ERROR', err);
         return res.json({
           'message': 'ERROR'
         });
